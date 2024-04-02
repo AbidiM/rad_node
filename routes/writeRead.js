@@ -3,7 +3,7 @@ const express = require('express');
 const crRoute = express.Router();
 const connection = require('../db');
 crRoute.post('/signup', function (req, res, next) {
-
+console.log("this is the signup crRoute");
 
     const name = req.body.name;
     const email = req.body.email;
