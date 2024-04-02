@@ -18,6 +18,8 @@ crRoute.post('/signup', function (req, res, next) {
         .then(() => {
             console.log('ok');
         }).catch((err) => {
+            
+            console.log('error asba');
             console.log(err);
         });
     res.end();
