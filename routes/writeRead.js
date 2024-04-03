@@ -34,15 +34,20 @@ crRoute.get('/login', function (req, res, next) {
             res.end();
         });
 });
-crRoute.post('/check', function (req, res, next,email) {
+crRoute.post('/check', function (req, res, next) {
 
+
+    
+    console.log(req.body);
+    console.log(req.params);
 
     const email = req.body.email;
+    const email1 = req.params.email;
 
 
 
-    console.log(req.body);
     console.log(email);
+    console.log(email1);
 
     connection.execute('SELECT * FROM users WHERE email=?;',
         [email1])
