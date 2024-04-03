@@ -39,19 +39,13 @@ crRoute.post('/check', function (req, res, next) {
 
     console.log(req.query.email);
     console.log(req.body);
+    console.log(req.body.email);
     console.log(req.params);
+    console.log(req.params.email);
 
-    const email = req.query.email;
-    const email1 = req.body.email;
-    const email2 = req.params.email;
-
-
-
-    console.log(email);
-    console.log(email1);
 
     connection.execute('SELECT * FROM users WHERE email=?;',
-        [email1])
+        [req.query.email])
         .then((result) => {
             var data = result[0];
             console.log(res);
