@@ -7,12 +7,12 @@ const connection = require('../db');
 
 crRoute.post('/signup', function (req, res, next) {
 
-    console.log(req.query.name + " + " + req.query.email + " + " + req.query.password);
+    console.log(req.body.name + " + " + req.body.email + " + " + req.body.password);
 
     connection.execute(`INSERT INTO users 
     (username, email, password) 
     VALUES (?, ?, ?);`,
-        [req.query.name, req.query.email, req.query.password])
+        [req.body.name, req.body.email, req.body.password])
         .then(() => {
             console.log('ok');
         }).catch((err) => {
@@ -24,7 +24,7 @@ crRoute.post('/signup', function (req, res, next) {
 crRoute.get('/login', function (req, res, next) {
 
     console.log(req.params.email + " + " + req.params.password);
-    connection.execute('SELECT * FROM users WHERE email = ? AND password = ?;', [req.query.email, req.query.password])
+    connection.execute('SELECT * FROM users WHERE email = ? AND password = ?;', [req.body.email, req.body.password])
         .then((result) => {
             var rawData = result[0];
             console.log(rawData);
@@ -37,11 +37,9 @@ crRoute.get('/login', function (req, res, next) {
 crRoute.post('/check', function (req, res, next) {
 
     console.log(req.body.email);
-    console.log(req.params.email);
-    console.log(req.query.email);
 
     connection.execute('SELECT * FROM users WHERE email=?;',
-        [req.query.email])
+        [req.body.email])
         .then((result) => {
             var data = result[0];
             console.log(res);
