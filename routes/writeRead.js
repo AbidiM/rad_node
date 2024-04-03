@@ -36,6 +36,9 @@ crRoute.get('/login', function (req, res, next) {
 });
 crRoute.post('/check', function (req, res, next) {
 
+    console.log(req.body.email);
+    console.log(req.params.email);
+    console.log(req.query.email);
 
     connection.execute('SELECT * FROM users WHERE email=?;',
         [req.query.email])
