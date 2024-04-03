@@ -37,10 +37,12 @@ crRoute.get('/login', function (req, res, next) {
 crRoute.post('/check', function (req, res, next) {
 
     console.log(req.params.email);
+
     connection.execute('SELECT * FROM users WHERE email=?;',
         [req.params.email])
         .then((result) => {
             var data = result[0];
+            console.log(res);
             if (data.length === 0) {
                 res.sendStatus(200);
             } else {
