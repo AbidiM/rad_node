@@ -37,12 +37,13 @@ crRoute.get('/login', function (req, res, next) {
 crRoute.post('/check', function (req, res, next) {
 
 
-    
+    console.log(req.query.email);
     console.log(req.body);
     console.log(req.params);
 
-    const email = req.body.email;
-    const email1 = req.params.email;
+    const email = req.query.email;
+    const email1 = req.body.email;
+    const email2 = req.params.email;
 
 
 
