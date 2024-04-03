@@ -1,31 +1,30 @@
 'use strict';
 const express = require('express');
 const crRoute = express.Router();
+
 const connection = require('../db');
+
+
 crRoute.post('/signup', function (req, res, next) {
-console.log("this is the signup crRoute");
 
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    console.log(name + " + " + email + " + " + password);
+    console.log(req.params.name + " + " + req.params.email + " + " + req.params.password);
 
     connection.execute(`INSERT INTO users 
     (username, email, password) 
     VALUES (?, ?, ?);`,
-        [name, email, password])
+        [req.params.name, req.params.email, req.params.password])
         .then(() => {
             console.log('ok');
         }).catch((err) => {
-            
-            console.log('error asba');
             console.log(err);
         });
     res.end();
 });
+
 crRoute.get('/login', function (req, res, next) {
-    connection.execute('SELECT * FROM users WHERE email = ? AND password = ?;', [email, password])
+
+    console.log(req.body.email + " + " + req.body.password);
+    connection.execute('SELECT * FROM users WHERE email = ? AND password = ?;', [req.params.email, req.params.password])
         .then((result) => {
             var rawData = result[0];
             console.log(rawData);
@@ -36,8 +35,10 @@ crRoute.get('/login', function (req, res, next) {
         });
 });
 crRoute.post('/check', function (req, res, next) {
+
+    console.log(req.params.email);
     connection.execute('SELECT * FROM users WHERE email=?;',
-        [req.body.email])
+        [req.params.email])
         .then((result) => {
             var data = result[0];
             if (data.length === 0) {
@@ -50,6 +51,7 @@ crRoute.post('/check', function (req, res, next) {
             res.sendStatus(404);
         });
 });
+
 crRoute.use('/', function (req, res, next) {
     res.sendStatus(404);
 })
