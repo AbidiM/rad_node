@@ -23,7 +23,8 @@ crRoute.post('/signup', function (req, res, next) {
 
 crRoute.get('/login', function (req, res, next) {
 
-    console.log(req.params.email + " + " + req.params.password);
+    console.log(req.body.email + " + " + req.body.password);
+    
     connection.execute('SELECT * FROM users WHERE email = ? AND password = ?;', [req.body.email, req.body.password])
         .then((result) => {
             var rawData = result[0];
@@ -34,6 +35,7 @@ crRoute.get('/login', function (req, res, next) {
             res.end();
         });
 });
+
 crRoute.post('/check', function (req, res, next) {
 
     console.log(req.body.email);
